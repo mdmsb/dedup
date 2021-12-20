@@ -285,7 +285,7 @@ class ctrlFunc():
 class tkApp:
   def __init__(self, root):
     self.root = root
-
+    self.pixelVirtual = tk.PhotoImage(width=1, height=1)
     self.f1()
     self.f2()
     self.f3()
@@ -298,19 +298,19 @@ class tkApp:
     self.next()
 
   def f1(self):
-    self.topframe = tk.Frame(self.root, width = 1200, height = 80, background="green")
+    self.topframe = tk.Frame(self.root, width = 1200, height = 80)
     self.topframe.pack(side="top")
-    self.topframe.pack_propagate(0)
+    #self.topframe.pack_propagate(0)
     self.topbtn()
 
   def topbtn(self):
-    name_label = tk.Label(self.topframe, text = 'Line#', background="green")
+    name_label = tk.Label(self.topframe, text = 'Line#')
     name_label.pack(side="left")
     self.name_entry = tk.Entry(self.topframe, width=8)
     self.name_entry.pack(side="left")
 
     btn4 = tk.Button(self.topframe, text="Go", fg="black", activebackground = "white", command=self.jumpnn, height = 1)
-    btn4.pack(side="left", padx = (0,25))
+    btn4.pack(side="left", padx = (0,25), pady=25)
     
     btn4 = tk.Button(self.topframe, text="Load File", fg="black", activebackground = "white", command=self.loadfile, height = 1)
     btn4.pack(side="left")
@@ -325,44 +325,50 @@ class tkApp:
 
   def f2(self):
     self.frame1 = tk.Frame(self.root, width = 1310, height = 190, background="blue")
-    self.frame1.pack(side="top")
+    self.frame1.pack(side="top",padx=10)
     self.frame1.pack_propagate(0)
     self.frames2a()
     self.frames2b()
 
   def frames2a(self):
-    self.leftframe = tk.Frame(self.frame1,  width = 650, height = 180,background="yellow")
-    self.leftframe.pack(side="left")
+    self.leftframe = tk.Frame(self.frame1,  width = 654, height = 184,background="yellow")
+    self.leftframe.pack(side="left", padx = (3,1))
     self.leftframe.pack_propagate(0)
 
-    btnwidth = 120
-    btn4 = tk.Button(self.leftframe, text=var.n1, fg="orange", activebackground = "orange", command=self.previous, height = 2, width = btnwidth, wraplength=500)
+    btnwidth = 650
+    btnheight = 55
+    btn4 = tk.Button(self.leftframe, text=var.n1, fg="orange",image=self.pixelVirtual,compound="c", activebackground = "orange", command=self.previous, height = btnheight, width = btnwidth, wraplength=500)
     btn4.pack()
-    btn4 = tk.Button(self.leftframe, text=var.n2, fg="blue", activebackground = "blue", height = 2, width = btnwidth, wraplength=500)
+    btn4 = tk.Button(self.leftframe, text=var.n2, fg="blue",image=self.pixelVirtual,compound="c", activebackground = "blue", height = btnheight, width = btnwidth, wraplength=500)
     btn4.pack()
-    btn4 = tk.Button(self.leftframe, text=var.n3, fg="orange", activebackground = "orange", command=self.next, height = 2, width = btnwidth, wraplength=500)
+    btn4 = tk.Button(self.leftframe, text=var.n3, fg="orange",image=self.pixelVirtual,compound="c", activebackground = "orange", command=self.next, height = btnheight, width = btnwidth, wraplength=500)
     btn4.pack()
 
   def frames2b(self):
-    self.rightframe = tk.Frame(self.frame1,  width = 650, height = 180,background="orange")
-    self.rightframe.pack(side="right")
+    self.rightframe = tk.Frame(self.frame1,  width = 654, height = 184,background="orange")
+    self.rightframe.pack(side="right", padx = (1,3))
     self.rightframe.pack_propagate(0)
-    btnwidth = 120
-    btn3 = tk.Button(self.rightframe, text=var.essVal[var.nn][0], fg="black", activebackground = "white", command=self.opt1, height = 2, width = btnwidth, wraplength=580)
+    btnwidth = 650
+    btnheight = 55
+    btn3 = tk.Button(self.rightframe, text=var.essVal[var.nn][0],image=self.pixelVirtual,compound="c", fg="black", activebackground = "white", command=self.opt1, height = btnheight, width = btnwidth, wraplength=580)
     btn3.pack()
-    btn3 = tk.Button(self.rightframe, text=var.essVal[var.nn][1], fg="black", activebackground = "white", command=self.opt2, height = 2, width = btnwidth, wraplength=580)
+    btn3 = tk.Button(self.rightframe, text=var.essVal[var.nn][1],image=self.pixelVirtual,compound="c", fg="black", activebackground = "white", command=self.opt2, height = btnheight, width = btnwidth, wraplength=580)
     btn3.pack()
-    btn3 = tk.Button(self.rightframe, text=var.essVal[var.nn][2], fg="black", activebackground = "white", command=self.opt3, height = 2, width = btnwidth, wraplength=580)
+    btn3 = tk.Button(self.rightframe, text=var.essVal[var.nn][2],image=self.pixelVirtual,compound="c", fg="black", activebackground = "white", command=self.opt3, height = btnheight, width = btnwidth, wraplength=580)
     btn3.pack()
 
   def f3(self):
-    self.optionframe = tk.Frame(self.root, width = 800, height = 80, background="green")
-    self.optionframe.pack()
-    self.optionframe.pack_propagate(0)
+    self.optionframe = tk.Frame(self.root,  height = 80)
+    self.optionframe.pack(fill="x", padx=25, pady=5)
+    #self.optionframe.pack_propagate(0)
+    self.optionframeL = tk.Frame(self.optionframe,  height = 80, width= 100)
+    self.optionframeL.pack(side="left")
+    self.optionframeR = tk.Frame(self.optionframe,  height = 80, width= 100)
+    self.optionframeR.pack(side="right")
 
-    self.textframe = tk.Frame(self.root, width = 1200, height = 380, background="brown")
-    self.textframe.pack(side="bottom")
-    self.textframe.pack_propagate(0)
+    #self.textframe = tk.Frame(self.root, width = 1200, height = 380, background="brown")
+    #self.textframe.pack(side="bottom")
+    #self.textframe.pack_propagate(0)
 
     self.optionbtn()
     self.txtbox()
@@ -372,23 +378,25 @@ class tkApp:
     btnwidth2 = 12
     fontsize = 25
     helv36 = tkFont.Font(family='Helvetica', size=10)
-    btn4 = tk.Button(self.optionframe, font=helv36, text="<", fg="black", activebackground = "white", command=self.goprev, width = btnwidth,height = 3, wraplength=40)
+    label = tk.Label(self.optionframeL, text = 'Navigation')
+    label.pack(side="left")
+    btn4 = tk.Button(self.optionframeL, font=helv36, text="<<", fg="black", activebackground = "white", command=self.goprev, width = btnwidth,height = 3, wraplength=40)
+    btn4.pack(side="left", padx=5, pady=5)
+    btn4 = tk.Button(self.optionframeL, font=helv36, text=">>", fg="black", activebackground = "white", command=self.gonext, width = btnwidth,height = 3, wraplength=40)
     btn4.pack(side="left", padx=5)
-    btn4 = tk.Button(self.optionframe, font=helv36, text=">", fg="black", activebackground = "white", command=self.gonext, width = btnwidth,height = 3, wraplength=40)
+    btn4 = tk.Button(self.optionframeL, font=helv36, text="Last Work", fg="black", activebackground = "white", command=self.lastwork, width = btnwidth,height = 3, wraplength=40)
     btn4.pack(side="left", padx=5)
-    btn4 = tk.Button(self.optionframe, font=helv36, text="Save List", fg="black", activebackground = "white", command=self.save, width = btnwidth,height = 3, wraplength=40)
+    btn4 = tk.Button(self.optionframeR, font=helv36, text="Save", fg="black", activebackground = "white", command=self.save, width = btnwidth,height = 3, wraplength=40)
     btn4.pack(side="left", padx=5)
-    btn4 = tk.Button(self.optionframe, font=helv36, text="Last Work", fg="black", activebackground = "white", command=self.lastwork, width = btnwidth,height = 3, wraplength=40)
+    btn4 = tk.Button(self.optionframeR, font=helv36, text="Blank", fg="black", activebackground = "white", command=self.blanklabel, width = btnwidth2,height = 3, wraplength=80)
     btn4.pack(side="left", padx=5)
-    btn4 = tk.Button(self.optionframe, font=helv36, text="Blank", fg="black", activebackground = "white", command=self.blanklabel, width = btnwidth2,height = 3, wraplength=80)
+    btn4 = tk.Button(self.optionframeR, font=helv36, text="Duplicate as previous", fg="black", activebackground = "white", command=self.dupPrev, width = btnwidth2,height = 3, wraplength=80)
     btn4.pack(side="left", padx=5)
-    btn4 = tk.Button(self.optionframe, font=helv36, text="Duplicate as previous", fg="black", activebackground = "white", command=self.dupPrev, width = btnwidth2,height = 3, wraplength=80)
-    btn4.pack(side="left", padx=5)
-    btn4 = tk.Button(self.optionframe, font=helv36, text="New - True", fg="black", activebackground = "white", command=self.newTrue, width = btnwidth2,height = 3, wraplength=80)
+    btn4 = tk.Button(self.optionframeR, font=helv36, text="New - True", fg="black", activebackground = "white", command=self.newTrue, width = btnwidth2,height = 3, wraplength=80)
     btn4.pack(side="left", padx=5)
 
   def txtbox(self):
-    var.T = tk.Text(self.textframe, font=(20))
+    var.T = tk.Text(self.root, font=(20))
     var.T.pack(fill='x')
 
 
