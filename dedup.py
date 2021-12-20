@@ -34,10 +34,12 @@ class mainFunc:
     tk.Tk().withdraw()
     filename = askopenfilename()
     print(filename)
-    if filename == "":
+    if filename == ():
+      print("No file selected, Exiting...")
       sys.exit()
     #skufile = "C:\\Storage\\Nexrise\\work_2020-07-01\\N92_Musab_Nexrise_Training_DataSet4.xlsx"
     self.skufile = filename
+    print(self.skufile)
     self.excelload()
     self.storedata()
 
