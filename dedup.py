@@ -13,15 +13,16 @@ nnvar = 0
 
 class var:
   def __init__(self):
-    self.fname = "x"
-    self.skuID = []
-    self.skuTitle = []
-    self.ess = []
-    self.labelDetail = []
-    self.nn = 0
-    self.n1 = 0
-    self.n2 = 0
-    self.n3 = 0
+    #self.fname = "x"
+    #self.skuID = []
+    #self.skuTitle = []
+    #self.ess = []
+    #self.labelDetail = []
+    #self.nn = 0
+    #self.n1 = 0
+    #self.n2 = 0
+    #self.n3 = 0
+    pass
 
 
 
@@ -41,15 +42,15 @@ class mainFunc:
     self.storedata()
 
   def excelload(self):
-    main1 = 2
-    main2 = 3
-    main3 = 9
-    col1 = 4
-    col2 = 5
-    col3 = 6
-    col4 = 7
-    col5 = 8
-    col6 = 10
+    main1 = 5 ### SKU ID
+    main2 = 6 ### SKU Title
+    main3 = 18 ### 3 ESS
+    col1 = 7 ### Brand
+    col2 = 9 ### Category
+    col3 = 11 ### Company
+    col4 = 13 ### UOM
+    col5 = 14 ### UOM
+    col6 = 19 ### prelabelled True or false
 
 
     self.skuID = []
@@ -156,6 +157,7 @@ class mainFunc:
       var.essVal = [[[],[],[]]]
       var.skulength = ""
       var.skudetail = ""
+      var.results = [[],[],[]]
 
   def findDup(self, s0, s1, s2):
     ss0 = set(s0.lower().split(" "))
@@ -179,7 +181,7 @@ class mainFunc:
 
   def txtdetail(self):
     var.skudetail = "[" + str(var.nn) + "/" + str(var.skulength) + "] "
-    var.skudetail += var.n2 + "\n\n"
+    var.skudetail += str(var.n2) + "\n\n"
     for ev in var.essVal[var.nn]:
       if len(ev) > 0:
         try:
@@ -194,7 +196,7 @@ class mainFunc:
     var.skudetail += "\n" + var.labelDetail[var.nn] + "\n\n"
 
     ## Add next previous skus
-    var.skudetail += var.n1 + "\n" + var.n2 + "\n" + var.n3
+    var.skudetail += str(var.n1) + "\n" + str(var.n2) + "\n" + str(var.n3)
 
     ## Add labelled
     var.skudetail += "\n\n" + str(var.results[var.nn])
@@ -208,6 +210,7 @@ class mainFunc:
     ## highlight matches
     var.spldetail = var.skudetail.split("\n\n")[1].split("\n")
     #n2s = n2.split(" ")
+    print(var.n2)
     n2s = re.split(r'[^A-Za-z0-9\.]', var.n2)
     for ns in n2s:
       nns = 3
@@ -310,8 +313,8 @@ class tkApp:
     btn4 = tk.Button(self.topframe, text="Load File", fg="black", activebackground = "white", command=self.loadfile, height = 1)
     btn4.pack(side="left")
     print(var.fname)
-    name_label = tk.Label(self.topframe, text = str('current loaded file : '+ var.fname))
-    name_label.pack(side="left")
+    var.fname_label = tk.Label(self.topframe, text = str('current loaded file : '+ var.fname))
+    var.fname_label.pack(side="left")
 
     btn4 = tk.Button(self.topframe, text="Reload File", fg="black", activebackground = "white", command=self.reload, height = 1)
     btn4.pack(side="left" , padx = 25)
@@ -393,8 +396,7 @@ class tkApp:
 
   def loadfile(self):
     mainFunc().loadfile()
-    var.nn = 1
-    self.previous()
+    self.reload()
 
   def previous(self):
     self.leftframe.destroy()
@@ -412,6 +414,7 @@ class tkApp:
       var.n1 = ""
       var.n2 = var.skuTitle[var.nn]
       var.n3 = var.skuTitle[var.nn+1]
+    print("Previous button:",var.n1,var.n2,var.n3)
     self.frames2a()
     self.frames2b()
     mainFunc().changetxtdetail2()
@@ -551,6 +554,7 @@ class tkApp:
 
   def reload(self):
     mainFunc().loaddata()
+    var.fname_label.config(text = var.fname)
     var.nn = 1
     self.previous()
 
